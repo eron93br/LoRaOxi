@@ -41,7 +41,7 @@ O código de produção foi disponibilizado no como arquivos estáticos no repos
 Serviço desenvolvido com o microframework Flask com o proposito de fornecer um frontend e conectar com um banco de dados InfluxDB.
 Projeto desenvolvido em parceria entre PUC-RJ e Inmetro
 
-# Container Docker
+## Container Docker
 
 A execução do Web Service é realizada através de um contêiner Docker e a configuração foi realizada através de Dockerfile e docker-compose. O arquivo config.cfg com os parâmetros de configuração para o ambiente de prodrução (Endereço IP do banco de dados, senhas e etc.) deve ser disponibilizado durante a configuração do contêiner. Os arquivos docker-compose.yml e Dockerfile são descritos a seguir:
 ```
@@ -61,36 +61,36 @@ DockerFile
 FROM python:3-alpine3.12```  
 ``` 
 
-# Atualiza timezone do container
+## Atualiza timezone do container
 ```
 RUN apk add --no-cache tzdata
 ENV TZ=America/Sao_Paulo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ```
 
-# Instala Git
+## Instala Git
 ```
 RUN apk add git
 ```
 
-# Cria diretório de trabalho
+## Cria diretório de trabalho
 ```
 RUN mkdir -p /srv/app/
 WORKDIR /srv/app
 ```
 
-# Clona repositorio do github
+## Clona repositorio do github
 ```
 RUN git clone https://github.com/inmetro-lainf/oximetro-backend
 WORKDIR oximetro-backend/
 ```
 
-# Instala dependências
+## Instala dependências
 ```
 RUN pip install -r requirements.txt
 ```
 
-# Copia arquivo com configurações de produção
+## Copia arquivo com configurações de produção
 ```
 RUN mkdir backend/production_instance/
 COPY  config.cfg backend/production_instance/
